@@ -2,6 +2,7 @@
 *.swp
 *.pdf
 *.pyc
+*.pkl
 
 # folders
 src/
