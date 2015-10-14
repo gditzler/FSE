@@ -1,6 +1,7 @@
 # file types 
 *.swp
 *.pdf
+*.pyc
 
 # folders
 src/
