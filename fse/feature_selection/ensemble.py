@@ -30,8 +30,11 @@ def bootstrap_selection(counts, N,  normalizer="poly", poly=2.):
   imp_set_sz : double 
       Estimate of the important feature subset size
   
+  features : list
+      List of features that were detected as relevant 
   """
   n_feat = len(counts)
+  all_features = np.array(range(n_feat))
   v = np.zeros((N,))
   if isinstance(counts, np.ndarray) is False:
     counts = np.array(counts)
@@ -51,8 +54,11 @@ def bootstrap_selection(counts, N,  normalizer="poly", poly=2.):
 
   for n in range(N):
     v[n] = len(np.unique(np.random.choice(range(n_feat), n_feat, p=probs)))
+  
+  idx = np.argsort(probs)[-int(np.floor(v.mean())):]
+  features = all_features[idx]
 
-  return v.mean()
+  return v.mean(), features
 
 def npfs(X, y, base="mim", alpha=.01, n_bootstraps=100):
   """
