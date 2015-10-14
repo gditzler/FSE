@@ -38,10 +38,10 @@ def bootstrap_selection(counts, N,  normalizer="poly", poly=2.):
 
   z = counts.copy()
   if normalizer == "minmax":
-    z = z/z.sum()
-    x1 = 1/(z.min()*(z.max()/z.min()-1))
-    x2 = 1/(1-z.max()/z.min())
-    probs = np.array([x1*z[n]+x2 for n in range(n_feat)])
+    z = (z+0.0000001)/z.sum()
+    x1 = 1./(z.min()*(z.max()/z.min()-1))
+    x2 = 1./(1-z.max()/z.min())
+    probs = np.abs(np.array([x1*z[n]+x2 for n in range(n_feat)]))
   elif normalizer == "poly":
     z = z/z.sum()
     probs = z**poly
