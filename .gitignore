@@ -1,0 +1,10 @@
+# file types 
+*.swp
+*.pdf
+
+# folders
+src/
+
+# jupyter
+.ipynb_checkpoints/
+
