@@ -104,7 +104,8 @@ def exp_syn_stability(fname="out.pkl", n_avg=25, n_feat=100, n_obs=250, n_rel=15
                 "boot_ja":boot_ja,
                 "nosc_no":nosc_no,
                 "npfs_no":npfs_no,
-                "boot_no":boot_no
+                "boot_no":boot_no,
+                "polies":polies
                 }
   pickle.dump(statistics, open(fname, "wb"))
 

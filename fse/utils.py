@@ -28,9 +28,12 @@ def similarities(A, B, n):
       Similarity between A & B
   """
   jaccard = sim_jaccard(A, B)
-  kuncheva = sim_kuncheva(A, B, n)
-  nogeuira = sim_nogeuira(A, B, n)
-  return (jaccard, kuncheva, nogeuira)
+  if len(A) != len(B):
+    kuncheva = None
+  else:
+    kuncheva = sim_kuncheva(A, B, n)
+  nogueira = sim_nogeuira(A, B, n)
+  return (jaccard, kuncheva, nogueira)
 
 def sim_kuncheva(A, B, n):
   """
@@ -61,7 +64,7 @@ def sim_kuncheva(A, B, n):
   sim = (r-k**2/n)/(k-k**2/n)
   return None
 
-def sim_nogueira(A, B, n):
+def sim_nogeuira(A, B, n):
   """
   Parameters
   ----------
