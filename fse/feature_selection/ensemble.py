@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
+import feast 
 import numpy as np
+
 from scipy.stats import binom
 from sklearn.feature_selection import chi2
 from ..utils import bin_data
@@ -60,7 +62,7 @@ def bootstrap_selection(counts, N,  normalizer="poly", poly=2.):
 
   return v.mean(), features
 
-def npfs(X, y, base="mim", alpha=.01, n_bootstraps=100):
+def npfs(X, y, n_select, base="mim", alpha=.01, n_bootstraps=100):
   """
   Parameters
   ----------
@@ -86,7 +88,7 @@ def npfs(X, y, base="mim", alpha=.01, n_bootstraps=100):
   """
  
   try: 
-    fs_method = getattr(feast, self.fs_method)
+    fs_method = getattr(feast, base)
   except ImportError: 
     raise("Method does not exist in FEAST")
   
@@ -102,12 +104,12 @@ def npfs(X, y, base="mim", alpha=.01, n_bootstraps=100):
   for n in range(n_bootstraps):
     # generate a random sample
     idx = np.random.randint(0, n_samp, n_samp)
-    sels = method(1.0*X[idx], y[idx], self.n_select)
+    sels = fs_method(1.0*X[idx], y[idx], n_select)
     b_sels = np.zeros((n_feat,))
     b_sels[sels] = 1.
     bern_matrix[:, n] = b_sels
 
-  delta = binom.ppf(1-alpha, n_bootstraps, fpr)
+  delta = binom.ppf(1-alpha, n_bootstraps, 1.*n_select/n_feat)
   z = np.sum(bern_matrix, axis=1)
 
   selections = []

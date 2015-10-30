@@ -59,7 +59,7 @@ def sim_kuncheva(A, B, n):
     raise("Set cardnalities must be the same.")
 
   k = 1.*len(A)
-  Er = 1.*k1*k2/n
+  Er = 1.*k**2/n
   r = 1.*len(A.intersection(B))
   sim = (r-k**2/n)/(k-k**2/n)
   return None
@@ -84,10 +84,10 @@ def sim_nogeuira(A, B, n):
   """
   A = set(A)
   B = set(B)
-  k1 = len(A)
-  k2 = len(B)
+  k1 = 1.*len(A)
+  k2 = 1.*len(B)
   Er = k1*k2/n
-  r = len(A.intersection(B))
+  r = 1.*len(A.intersection(B))
   sim = (r-k1*k2/n)/np.abs(np.min([k1,k2])-k1*k2/n)
   return sim
 
@@ -110,7 +110,7 @@ def sim_jaccard(A, B):
   B = set(B)
   num = A.intersection(B)
   den = A.union(B)
-  sim = len(num)/len(den)
+  sim = 1.*len(num)/len(den)
   return sim
 
 def syn_data(n_features=25, n_observations=100, n_relevant=5):
